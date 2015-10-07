@@ -1,0 +1,21 @@
+{
+  "version": "0.0.1",
+  "private": false,
+  "name": "angular-sauth",
+  "description": "Simple Auth function",
+  "repository": "https://github.com/rrawrriw/angular-sauth",
+  "license": "MIT",
+  "devDependencies": {
+    "karma": "^0.13.0",
+    "karma-chrome-launcher": "^0.2.0",
+    "karma-jasmine": "^0.3.6"
+  },
+  "scripts": {
+    "pretest": "npm install",
+    "test": "node node_modules/karma/bin/karma start test/karma.conf.js",
+    "test-single-run": "node node_modules/karma/bin/karma start test/karma.conf.js  --single-run",
+
+    "preupdate-webdriver": "npm install",
+    "update-webdriver": "webdriver-manager update"
+  }
+}
