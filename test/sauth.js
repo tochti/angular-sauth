@@ -11,6 +11,7 @@ describe('Auth', function () {
 
   var User = function (name, pass) {
     return {
+      _id: '',
       state: false,
       name: function () {
         return name;
@@ -18,8 +19,12 @@ describe('Auth', function () {
       pass: function () {
         return pass;
       },
-      login: function (s) {
-        this.state = s;
+      id: function () {
+        return this._id;
+      },
+      login: function (id) {
+        this._id = id;
+        this.state = true;
       },
       signedIn: function () {
         return this.state; 
@@ -38,6 +43,7 @@ describe('Auth', function () {
 
     userName = "ladyKiller_99";
     userPass = "123";
+    userID = "456";
   }));
 
 
@@ -48,7 +54,7 @@ describe('Auth', function () {
     var url = '/auth/ladyKiller_99/'+ sha1P;
 
     $httpBackend.expectGET(url)
-      .respond({"Status": "success"});
+      .respond({"Status": "success", "Data": {"UserID": userID}});
     
     $s.auth.setup({
       prefix: "/auth",
@@ -59,6 +65,7 @@ describe('Auth', function () {
 
     p.then(function (resp) {
       expect(u.signedIn()).toBe(true);
+      expect(u.id()).toBe(userID);
       done();
     })
 

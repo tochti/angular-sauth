@@ -34,7 +34,7 @@ angular.module('SAuth', [])
       // Expect a object with the following methods
       // name() string, return username
       // pass() string, return password in cleartext
-      // login(bool), get called when login was successfull
+      // login(id), get called when login was successfull pass userid
       //
       // The Function attempt sends a GET request 
       // URL: /login/:name/:pass, pass is sended in sha1
@@ -53,6 +53,7 @@ angular.module('SAuth', [])
       //
       // function auth(user) promise
       auth: function (user) {
+        var uID = '';
         var d = $q.defer();
 
         var name = user.name();
@@ -64,7 +65,8 @@ angular.module('SAuth', [])
 
         var success = function (resp) {
             if (resp.data.Status === "success") {
-              user.login(true);
+              uID = resp.data.Data.UserID
+              user.login(uID);
               d.resolve(resp);
               return
             }
