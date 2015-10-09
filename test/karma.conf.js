@@ -4,15 +4,13 @@ module.exports = function(config){
     basePath : '../',
 
     files : [
-      'ext/jquery/dist/jquery.min.js',
+      'ext/crypto-js/rollups/sha1.js',
+      'ext/jquery/jquery.js',
       'ext/angular/angular.js',
       'ext/angular-mocks/angular-mocks.js',
       'ext/angular-route/angular-route.js',
-      'ext/angular-resource/angular-resource.js',
-      'ext/angular-ui/ui-bootstrap-tpls-0.13.0.min.js',
-      'ext/angular-pdf-viewer/angular-pdf-viewer.min.js',
-      'js/*.js',
-      'test/unit/**/*.js'
+      '*.js',
+      'test/*.js'
     ],
 
     autoWatch : true,
