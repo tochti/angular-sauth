@@ -58,7 +58,7 @@ describe('Auth', function () {
     $httpBackend.flush();
 
     p.then(function (resp) {
-      expect(u.signedIn).toBe(true);
+      expect(u.signedIn()).toBe(true);
       done();
     })
 
@@ -85,7 +85,7 @@ describe('Auth', function () {
     p.then(function (resp) {
       fail("should not be called");
     }, function (resp) {
-      expect(u.signedIn).toBe(false);
+      expect(u.signedIn()).toBe(false);
       done();
     });
 
