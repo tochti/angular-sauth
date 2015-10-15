@@ -22,7 +22,7 @@ describe('Auth', function () {
       id: function () {
         return this._id;
       },
-      login: function (id) {
+      signIn: function (id) {
         this._id = id;
         this.state = true;
       },
@@ -59,7 +59,7 @@ describe('Auth', function () {
     $s.auth.setup({
       prefix: "/auth",
     })
-    var p = $s.auth.auth(u);
+    var p = $s.auth.signIn(u);
 
     $httpBackend.flush();
 
@@ -85,7 +85,7 @@ describe('Auth', function () {
     $s.auth.setup({
       prefix: "/auth",
     })
-    var p = $s.auth.auth(u);
+    var p = $s.auth.signIn(u);
 
     $httpBackend.flush();
 
