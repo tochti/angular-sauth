@@ -6,10 +6,6 @@ angular.module('SAuth', [])
     var sauth = {
       _urlPrefix: "/login",
 
-      newSha1Pass: function (pass) {
-        return CryptoJS.SHA1(pass);
-      },
-
       setup: function (spec) {
         if (spec.prefix !== undefined) {
           return this.setPrefix(spec.prefix);
@@ -59,9 +55,7 @@ angular.module('SAuth', [])
         var name = user.name();
         var pass = user.pass();
 
-        var sha1Pass = this.newSha1Pass(pass)
-
-        var url = this._urlPrefix +"/"+ name +"/"+ sha1Pass;
+        var url = this._urlPrefix +"/"+ name +"/"+ pass;
 
         var success = function (resp) {
             if (resp.data.Status === "success") {

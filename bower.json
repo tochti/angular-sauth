@@ -7,7 +7,6 @@
 		"angular": "1.4.6",
 		"angular-route": "1.4.6",
 		"angular-mocks": "1.4.6",
-		"crypto-js": "http://crypto-js.googlecode.com/files/CryptoJS%20v3.1.2.zip"
 	}
 
 }

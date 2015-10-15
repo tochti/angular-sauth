@@ -50,8 +50,7 @@ describe('Auth', function () {
   it('authenticate user success', function (done) {
     var u = User(userName, userPass);
 
-    var sha1P = CryptoJS.SHA1(userPass);
-    var url = '/auth/ladyKiller_99/'+ sha1P;
+    var url = '/auth/ladyKiller_99/'+ u.pass();
 
     $httpBackend.expectGET(url)
       .respond({"Status": "success", "Data": {"UserID": userID}});
@@ -76,8 +75,7 @@ describe('Auth', function () {
   it('authenticate user fail', function (done) {
     var u = User(userName, userPass);
 
-    var sha1P = CryptoJS.SHA1(userPass);
-    var url = '/auth/ladyKiller_99/'+ sha1P;
+    var url = '/auth/ladyKiller_99/'+ u.pass();
 
     $httpBackend.expectGET(url)
       .respond({"Status": "fail"});
