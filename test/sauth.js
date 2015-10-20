@@ -53,7 +53,7 @@ describe('Auth', function () {
     var url = '/auth/ladyKiller_99/'+ u.pass();
 
     $httpBackend.expectGET(url)
-      .respond({"Status": "success", "Data": {"UserID": userID}});
+      .respond({"Status": "success", "Data": {"ID": userID}});
     
     $s.auth.setup({
       prefix: "/auth",
@@ -98,6 +98,32 @@ describe('Auth', function () {
 
   });
 
+  it('authenticate user fail', function (done) {
+    var u = User(userName, userPass);
+
+    var url = '/auth/ladyKiller_99/'+ u.pass();
+
+    $httpBackend.expectGET(url)
+      .respond({"Status": "success", "Data": {}});
+    
+    $s.auth.setup({
+      prefix: "/auth",
+    })
+    var p = $s.auth.signIn(u);
+
+    $httpBackend.flush();
+
+    p.then(function (resp) {
+      fail("should not be called");
+    }, function (resp) {
+      expect(u.signedIn()).toBe(false);
+      done();
+    });
+
+    $s.$apply();
+
+  });
+  
   it('test set prefix', function () {
     $s.auth.setPrefix('/l');
     expect($s.auth._urlPrefix).toBe('/l');

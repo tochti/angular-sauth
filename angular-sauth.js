@@ -59,7 +59,18 @@ angular.module('SAuth', [])
 
         var success = function (resp) {
             if (resp.data.Status === "success") {
-              uID = resp.data.Data.UserID
+              uID = resp.data.Data.ID
+              if (uID === undefined) {
+                var r = {
+                  data: {
+                    Status: "fail",
+                    Err: "Cannot find user id",
+                  }
+                }
+                d.reject(r);
+                return
+              }
+
               user.signIn(uID);
               d.resolve(resp);
               return
