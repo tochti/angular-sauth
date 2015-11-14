@@ -29,25 +29,29 @@ angular.module('SAuth', [])
 
       // Expect a object with the following methods
       // name() string, return username
-      // pass() string, return password in cleartext
-      // signIn(id), get called when login was successfull pass userid
+      // pass() string, return password
+      // signIn(id), get called when login was successfull passing user id
       //
-      // The Function attempt sends a GET request 
-      // URL: /login/:name/:pass, pass is sended in sha1
+      // The Function sends a GET request 
+      // URL: /_urlPrefix/:name/:pass
       // Function expect following Response
       // JSON Format
       // When the request was succesfull
       // {
       //  Status: "success",
-      //  ...
+      //  Data: {
+      //    UserID: "id",
+      //    ...
+      //  }
       // }
+      //
       // When the request failed
       // {
       //  Status: "fail",
-      //  ...
+      //  Err: "Error Text",
       // }
       //
-      // function return promise
+      // function returns a promise
       signIn: function (user) {
         var uID = '';
         var d = $q.defer();
@@ -59,7 +63,7 @@ angular.module('SAuth', [])
 
         var success = function (resp) {
             if (resp.data.Status === "success") {
-              uID = resp.data.Data.ID
+              uID = resp.data.Data.UserID
               if (uID === undefined) {
                 var r = {
                   data: {
