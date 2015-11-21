@@ -56,8 +56,8 @@ angular.module('SAuth', [])
         var uID = '';
         var d = $q.defer();
 
-        var name = user.name();
-        var pass = user.pass();
+        var name = btoa(user.name());
+        var pass = btoa(user.pass());
 
         var url = this._urlPrefix +"/"+ name +"/"+ pass;
 

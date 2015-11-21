@@ -41,33 +41,35 @@ describe('Auth', function () {
 
     $s.auth = $injector.get('Auth');
 
-    userName = "ladyKiller_99";
-    userPass = "123";
-    userID = "456";
+    userName = 'ladyKiller_99';
+    userPass = '123';
+    userID = '456';
   }));
 
 
   it('authenticate user success', function (done) {
     var u = User(userName, userPass);
 
-    var url = '/auth/ladyKiller_99/'+ u.pass();
+    var url = '/auth/'+ btoa(userName) +'/'+ btoa(u.pass());
 
     $httpBackend.expectGET(url)
-      .respond({"Status": "success", "Data": {"ID": userID}});
+      .respond({'Status': 'success', 'Data': {'ID': userID}});
     
     $s.auth.setup({
       prefix: "/auth",
     })
     var p = $s.auth.signIn(u);
 
-    $httpBackend.flush();
-
     p.then(function (resp) {
+      console.log('test');
       expect(u.signedIn()).toBe(true);
       expect(u.id()).toBe(userID);
       done();
+    }, function (resp) {
+      fail('should not be called', resp);
     })
 
+    $httpBackend.flush();
     $s.$apply();
 
   });
@@ -75,10 +77,10 @@ describe('Auth', function () {
   it('authenticate user fail', function (done) {
     var u = User(userName, userPass);
 
-    var url = '/auth/ladyKiller_99/'+ u.pass();
+    var url = '/auth/'+ btoa(userName) +'/'+ btoa(u.pass());
 
     $httpBackend.expectGET(url)
-      .respond({"Status": "fail"});
+      .respond({'Status': 'fail'});
     
     $s.auth.setup({
       prefix: "/auth",
@@ -88,7 +90,7 @@ describe('Auth', function () {
     $httpBackend.flush();
 
     p.then(function (resp) {
-      fail("should not be called");
+      fail('should not be called', resp);
     }, function (resp) {
       expect(u.signedIn()).toBe(false);
       done();
@@ -101,10 +103,10 @@ describe('Auth', function () {
   it('authenticate user fail', function (done) {
     var u = User(userName, userPass);
 
-    var url = '/auth/ladyKiller_99/'+ u.pass();
+    var url = '/auth/'+ btoa(userName) +'/'+ btoa(u.pass());
 
     $httpBackend.expectGET(url)
-      .respond({"Status": "success", "Data": {}});
+      .respond({'Status': 'success', 'Data': {}});
     
     $s.auth.setup({
       prefix: "/auth",
@@ -114,7 +116,7 @@ describe('Auth', function () {
     $httpBackend.flush();
 
     p.then(function (resp) {
-      fail("should not be called");
+      fail('should not be called');
     }, function (resp) {
       expect(u.signedIn()).toBe(false);
       done();
